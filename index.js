@@ -175,6 +175,12 @@ app.get('/addPackage', (req,res) => {
     });
 });
 
+app.get('/getTops', (req,res) => {
+    Package.find({}, (err,packages)=> {
+        res.send(packages);
+    }).sort({Downloads: -1}).limit(8)
+});
+
 app.listen(80, () => {
     console.log('Server is running on port 80!');
 });
