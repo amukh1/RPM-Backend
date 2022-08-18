@@ -18,6 +18,9 @@ let userSchema = new Schema({
     Readme: {
         type: String,
         // required: true,
+    },
+    Author: {
+      type:String,
     }
 });
 

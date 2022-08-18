@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const fs = require('fs');
-require('dotenv').config()
+// require('dotenv').config()
 
 const User = require('./schemas/user');
 const Package = require('./schemas/package');
@@ -35,12 +35,13 @@ function newUser(name, password, packages) {
   
 }
 
-function newPackage(name, downloads, downloadsl, rm) {
+function newPackage(name, downloads, downloadsl, rm, au) {
     let package = new Package({
       Name: name,
       Downloads: downloads,
       DownloadsL: downloadsl,
       Readme: rm,
+      Author: au
     })
   
     package.save()
@@ -69,7 +70,7 @@ app.get('/newUser', (req, res) => {
 app.post('/newPackage', (req, res) => {
     {requestBody: req.body}
     console.log(req.body)
-    newPackage(req.query.name, 0, 0, req.body.files['readme.md'])
+    newPackage(req.query.name, 0, 0, req.body.files['readme.md'], req.query.author)
 fs.mkdirSync(`./packages/${req.query.name}`)
 // fs.writeFileSync(`./packages/${req.query.name}/README.md`, req.query.rm)
 // req.body.files = object that contains the file name & file contents
